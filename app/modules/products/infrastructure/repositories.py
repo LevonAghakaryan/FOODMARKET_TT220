@@ -51,7 +51,11 @@ class ProductRepository:
         return products
 
     # Ստանալ ապրանքը ըստ ID-ի (ԹԱՐՄԱՑՎԱԾ)
-    def get_product_by_id(self, product_id: int) -> Product | None:
+    # def get_product_by_id(self, product_id: int) -> Product | None:
+    #     statement = select(Product).options(joinedload(Product.category)).filter_by(id=product_id)
+    #     product = self.db.scalars(statement).unique().one_or_none()
+    #     return product
+    def get_product_by_id(self, product_id: int) -> Optional[Product]:
         statement = select(Product).options(joinedload(Product.category)).filter_by(id=product_id)
         product = self.db.scalars(statement).unique().one_or_none()
         return product
